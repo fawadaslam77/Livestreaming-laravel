@@ -1,0 +1,2436 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.1",
+    "title": "Webservices For Streamix Project",
+    "description": "Responses: 200: OK, 201: Created Successfully, 202:Updated Successfully, 400: Form Validation Error, 401: Token Parameter Not Found, 403: Authorization Error, 404: Resource Not Found, 500: Something went wrong, ",
+    "contact": {
+      "email": "test@test.com"
+    },
+    "license": {
+      "name": "SAK & BT"
+    }
+  },
+  "host": "35.160.175.165",
+  "basePath": "/streamix/api",
+  "tags": [
+    {
+      "name": "Authentication",
+      "description": "Authentication"
+    },
+    {
+      "name": "CMS Pages",
+      "description": "CMS Pages"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/guest-token": {
+      "post": {
+        "description": "Get Guest User Token.",
+        "summary": "Guest User Token",
+        "tags": [
+          "Authentication"
+        ],
+        "operationId": "Guest User Token",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "project_name",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "default":"streamix",
+            "description": "project name"
+          }
+        ],
+        "responses": {
+          "200": [
+            {
+              "description": ""
+            }
+          ]
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "description": "Log in a registered app user.",
+        "summary": "Login",
+        "tags": [
+          "Authentication"
+        ],
+        "operationId": "Login",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "Email address of the user"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "Password of the user"
+          },
+          {
+            "name": "role_id",
+            "in": "formData",
+            "required": false,
+            "type": "integer",
+            "default": 2,
+            "description": "Used for Admin portal only."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/forgot-password": {
+      "post": {
+        "description": "Request a new password via email",
+        "summary": "Forgot Password",
+        "tags": [
+          "Authentication"
+        ],
+        "operationId": "Forgot Password",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "email of the user"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/renew-token": {
+      "post": {
+        "description": "Renew expired token of a user",
+        "summary": "Renew Token",
+        "tags": [
+          "Authentication"
+        ],
+        "operationId": "Renew Token",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "user email address"
+          },
+          {
+            "name": "user_id",
+            "in": "formData",
+            "required": true,
+            "type": "integer",
+            "description": "user id (returned from login api)"
+          },
+          {
+            "name": "role_id",
+            "in": "formData",
+            "required": false,
+            "type": "integer",
+            "default": 2,
+            "description": "Used for Admin portal only."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/register": {
+      "post": {
+        "description": "Register a new user",
+        "summary": "Register Step 1",
+        "tags": [
+          "Authentication"
+        ],
+        "operationId": "Register Step 1",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "email address of the new user"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "password of the new user"
+          },
+          {
+            "name": "full_name",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "full name of the new user"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/username-availability": {
+      "post": {
+        "description": "Check username availability",
+        "summary": "Check Username Availability",
+        "tags": [
+          "Authentication"
+        ],
+        "operationId": "Check Username Availability",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "username to check availablity"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from register api."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/register-2": {
+      "post": {
+        "description": "Add Username and Profile Picture of the user",
+        "summary": "Register Step 2",
+        "tags": [
+          "Authentication"
+        ],
+        "operationId": "Register Step 2",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "_method",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "default": "PATCH",
+            "description": "Framework required parameter."
+          },
+          {
+            "name": "username",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "username which was checked by Availablity API"
+          },
+          {
+            "name": "user_id",
+            "in": "formData",
+            "required": true,
+            "type": "integer",
+            "description": "user_id of the user (returned from Register Api)"
+          },
+          {
+            "name": "profile_picture",
+            "in": "formData",
+            "required": true,
+            "type": "file",
+            "description": "Image / Video file for the profile picture"
+          },
+          {
+            "name": "is_picture",
+            "in": "formData",
+            "required": true,
+            "type": "integer",
+            "enum" : [0,1],
+            "description": "Set this to 1 for picture or 0 for video"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from register api."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/logout": {
+      "post": {
+        "description": "Logout the user",
+        "summary": "Logout",
+        "tags": [
+          "Authentication"
+        ],
+        "operationId": "Logout",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/cms-pages": {
+      "get": {
+        "description": "Get List of CMS Pages (E.g. Privacy Policy, Terms and Conditions, etc.)",
+        "summary": "List CMS Pages",
+        "tags": [
+          "CMS Pages"
+        ],
+        "operationId": "List CMS Pages",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "offset , initaially pass 0 , then 0+limit",
+            "required": false,
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit , no of records you want to get ,  by default its value is 10, pass 0 to get all the records",
+            "required": false,
+            "type": "integer",
+            "default": "10"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "description": "Create a CMS Page",
+        "summary": "Create CMS Page (Needs Admin Token)",
+        "tags": [
+          "CMS Pages"
+        ],
+        "operationId": "Create CMS Page",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "Name of the CMS Page"
+          },
+          {
+            "name": "title",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "Title of the CMS Page"
+          },
+          {
+            "name": "body",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "Body of the CMS Page"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/cms-pages/{id}": {
+      "get": {
+        "description": "View a single CMS Page",
+        "summary": "View CMS Page",
+        "tags": [
+          "CMS Pages"
+        ],
+        "operationId": "View CMS Page",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id (pass cms page id here)",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete a CMS Page",
+        "summary": "Delete CMS Page (Needs Admin Token)",
+        "tags": [
+          "CMS Pages"
+        ],
+        "operationId": "Delete CMS Page",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id (pass cms page id here)",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "patch": {
+        "description": "Update a CMS Page",
+        "summary": "Update CMS Page (Needs Admin Token)",
+        "tags": [
+          "CMS Pages"
+        ],
+        "operationId": "Update CMS Page",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id (pass cms page id here)",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "required": false,
+            "type": "string",
+            "description": "new name of the cms page"
+          },
+          {
+            "name": "title",
+            "in": "formData",
+            "required": false,
+            "type": "string",
+            "description": "new title of the cms page"
+          },
+          {
+            "name": "body",
+            "in": "formData",
+            "required": false,
+            "type": "string",
+            "description": "new body of the cms page"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/contact-forms": {
+      "get": {
+        "description": "List Contact Forms",
+        "summary": "List Contact Forms (Needs Admin Token)",
+        "tags": [
+          "Contact Forms"
+        ],
+        "operationId": "List Contact Forms",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "offset , initaially pass 0 , then 0+limit",
+            "required": false,
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit , no of records you want to get ,  by default its value is 10, pass 0 to get all the records",
+            "required": false,
+            "type": "integer",
+            "default": "10"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "description": "Add a Contact Form Entry",
+        "summary": "Create Contact Form",
+        "tags": [
+          "Contact Forms"
+        ],
+        "operationId": "Create Contact Form",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "formData",
+            "required": true,
+            "type": "integer",
+            "description": "user_id of the user"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "email address provided by the user"
+          },
+          {
+            "name": "comments",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "comments of the user"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/contact-forms/{id}": {
+      "get": {
+        "description": "Get a single contact form entry",
+        "summary": "View Contact Form (Needs Admin Token)",
+        "tags": [
+          "Contact Forms"
+        ],
+        "operationId": "View Contact Form",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id (pass contact form entry id here)",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from register api."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete a contact form entry",
+        "summary": "Delete Contact Form (Needs Admin Token)",
+        "tags": [
+          "Contact Forms"
+        ],
+        "operationId": "Delete Contact Form",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id (pass contact form entry id here)",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from register api."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "patch": {
+        "description": "Update a contact form entry",
+        "summary": "Update Contact Form (Needs Admin Token)",
+        "tags": [
+          "Contact Forms"
+        ],
+        "operationId": "Update Contact Form",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id (pass contact form entry id here)",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "required": false,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "comments",
+            "in": "formData",
+            "required": false,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from register api."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/packages": {
+      "get": {
+        "description": "List All Packages",
+        "summary": "List Packages",
+        "tags": [
+          "Packages"
+        ],
+        "operationId": "List Packages",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from register api."
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "offset , initaially pass 0 , then 0+limit",
+            "required": false,
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit , no of records you want to get ,  by default its value is 10, pass 0 to get all the records",
+            "required": false,
+            "type": "integer",
+            "default": "10"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "description": "Create New Package",
+        "summary": "Create Package (Needs Admin Token)",
+        "tags": [
+          "Packages"
+        ],
+        "operationId": "Create Packages",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "name of the package"
+          },
+          {
+            "name": "daily_limit",
+            "in": "formData",
+            "required": true,
+            "type": "integer",
+            "description": "daily limit to start new streams"
+          },
+          {
+            "name": "storage_limit",
+            "in": "formData",
+            "required": true,
+            "type": "integer",
+            "description": "storage limit of the package in MBs (E.g. 2048 = 2GB)"
+          },
+          {
+            "name": "expire_days",
+            "in": "formData",
+            "required": true,
+            "type": "integer",
+            "description": "Package expiry in days"
+          },
+          {
+            "name": "dashboard",
+            "in": "formData",
+            "required": true,
+            "type": "integer",
+            "enum" : [ "0", "1" ],
+            "description": "Dashboard Access is Allowed or Not"
+          },
+          {
+            "name": "allow_240",
+            "in": "formData",
+            "required": true,
+            "type": "integer",
+            "enum" : [ "0", "1" ],
+            "description": "Allow 240P Streaming Quality"
+          },
+          {
+            "name": "allow_480",
+            "in": "formData",
+            "required": true,
+            "type": "integer",
+            "enum" : [ "0", "1" ],
+            "description": "Allow 480P Streaming Quality"
+          },
+          {
+            "name": "allow_720",
+            "in": "formData",
+            "required": true,
+            "type": "integer",
+            "enum" : [ "0", "1" ],
+            "description": "Allow 720P Streaming Quality"
+          },
+          {
+            "name": "allow_1080",
+            "in": "formData",
+            "required": true,
+            "type": "integer",
+            "enum" : [ "0", "1" ],
+            "description": "Allow 1080P Streaming Quality"
+          },
+          {
+            "name": "allow_save_offline",
+            "in": "formData",
+            "required": true,
+            "type": "integer",
+            "enum" : [ "0", "1" ],
+            "description": "Allow user to save videos offline"
+          },
+          {
+            "name": "disable_ads",
+            "in": "formData",
+            "required": true,
+            "type": "integer",
+            "enum" : [ "0", "1" ],
+            "description": "Disable Ads for user"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from register api."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/packages/{id}": {
+      "get": {
+        "description": "Get a Single Package by id",
+        "summary": "View Packages",
+        "tags": [
+          "Packages"
+        ],
+        "operationId": "View Packages",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id (pass package id here)",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from register api."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete a Package",
+        "summary": "Delete Packages (Needs Admin Token)",
+        "tags": [
+          "Packages"
+        ],
+        "operationId": "Delete Packages",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id (pass package id here)",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from register api."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "patch": {
+        "description": "Update a Package",
+        "summary": "Update Package (Needs Admin Token)",
+        "tags": [
+          "Packages"
+        ],
+        "operationId": "Update Package",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id (pass package id here)",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "required": false,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "daily_limit",
+            "in": "formData",
+            "required": false,
+            "type": "integer",
+            "description": "daily limit to start new streams"
+          },
+          {
+            "name": "storage_limit",
+            "in": "formData",
+            "required": false,
+            "type": "integer",
+            "description": "storage limit of the package in MBs (E.g. 2048 = 2GB)"
+          },
+          {
+            "name": "expire_days",
+            "in": "formData",
+            "required": false,
+            "type": "integer",
+            "description": "Package expiry in days"
+          },
+          {
+            "name": "dashboard",
+            "in": "formData",
+            "required": false,
+            "type": "integer",
+            "enum" : [ "0", "1" ],
+            "description": "Dashboard Access is Allowed or Not"
+          },
+          {
+            "name": "allow_240",
+            "in": "formData",
+            "required": false,
+            "type": "integer",
+            "enum" : [ "0", "1" ],
+            "description": "Allow 240P Streaming Quality"
+          },
+          {
+            "name": "allow_480",
+            "in": "formData",
+            "required": false,
+            "type": "integer",
+            "enum" : [ "0", "1" ],
+            "description": "Allow 480P Streaming Quality"
+          },
+          {
+            "name": "allow_720",
+            "in": "formData",
+            "required": false,
+            "type": "integer",
+            "enum" : [ "0", "1" ],
+            "description": "Allow 720P Streaming Quality"
+          },
+          {
+            "name": "allow_1080",
+            "in": "formData",
+            "required": false,
+            "type": "integer",
+            "enum" : [ "0", "1" ],
+            "description": "Allow 1080P Streaming Quality"
+          },
+          {
+            "name": "allow_save_offline",
+            "in": "formData",
+            "required": false,
+            "type": "integer",
+            "enum" : [ "0", "1" ],
+            "description": "Allow user to save videos offline"
+          },
+          {
+            "name": "disable_ads",
+            "in": "formData",
+            "required": false,
+            "type": "integer",
+            "enum" : [ "0", "1" ],
+            "description": "Disable Ads for user"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from register api."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/permissions": {
+      "get": {
+        "description": "List Permissions",
+        "summary": "List Permissions (Admins Only)",
+        "tags": [
+          "Permissions"
+        ],
+        "operationId": "List Permissions",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from register api."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/change-password": {
+      "post": {
+        "description": "Change a user's password",
+        "summary": "Change Password",
+        "tags": [
+          "Profile"
+        ],
+        "operationId": "Change Password",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "formData",
+            "required": true,
+            "type": "integer",
+            "description": "pass the user id here"
+          },
+          {
+            "name": "old_password",
+            "in": "formData",
+            "required": false,
+            "type": "string",
+            "description": "old password of the user."
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "new password to set"
+          },
+          {
+            "name": "password_confirmation",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "password confirmation"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/user": {
+      "get": {
+        "description": "Get Details of the user Identified by Token",
+        "summary": "Get User Details",
+        "tags": [
+          "Profile"
+        ],
+        "operationId": "Get User Details",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "description": "Update User Details",
+        "summary": "Update User",
+        "tags": [
+          "Profile"
+        ],
+        "operationId": "Update User",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "_method",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "default": "PATCH",
+            "description": "Framework Required String"
+          },
+          {
+            "name": "user_id",
+            "in": "formData",
+            "required": true,
+            "type": "integer",
+            "description": "pass user id here"
+          },
+          {
+            "name": "full_name",
+            "in": "formData",
+            "required": false,
+            "type": "string",
+            "description": "new full name of the user"
+          },
+          {
+            "name": "profile_picture",
+            "in": "formData",
+            "required": false,
+            "type": "file",
+            "description": "Picture / Video for profile"
+          },
+          {
+            "name": "old_password",
+            "in": "formData",
+            "required": false,
+            "type": "string",
+            "description": "old password of the user. *Required if password is provided"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "required": false,
+            "type": "string",
+            "description": "new password for the user"
+          },
+          {
+            "name": "password_confirmation",
+            "in": "formData",
+            "required": false,
+            "type": "string",
+            "description": "password confirmation of the user. *Required and should be same as password if password is provided"
+          },
+          {
+            "name": "status_text",
+            "in": "formData",
+            "required": false,
+            "type": "string",
+            "description": "status text for the user profile."
+          },
+          {
+            "name": "gender",
+            "in": "formData",
+            "required": false,
+            "type": "string",
+            "enum": ["male","female"],
+            "description": "gender of the user, can be ('male', 'female')"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/device-info": {
+      "patch": {
+        "description": "Update Device info of the User",
+        "summary": "Update Device Info",
+        "tags": [
+          "Profile"
+        ],
+        "operationId": "Update Device Info",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "device_token",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "device token of the user"
+          },
+          {
+            "name": "user_id",
+            "in": "formData",
+            "required": true,
+            "type": "integer",
+            "description": "pass user id here"
+          },
+          {
+            "name": "device_type",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "enum": ["ios", "android"],
+            "description": "device type: (ios, android)"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/notification-status": {
+      "patch": {
+        "description": "Update Notification Setting of the User",
+        "summary": "Update Notification Status",
+        "tags": [
+          "Profile"
+        ],
+        "operationId": "Update Notification Status",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "formData",
+            "required": true,
+            "type": "integer",
+            "description": "pass user id here"
+          },
+          {
+            "name": "status",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "enum": [ "0", "1"],
+            "description": "Set Status (0 = off, 1 = on)"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/roles": {
+      "get": {
+        "description": "List Roles for User",
+        "summary": "List Roles (Needs Admin Token)",
+        "tags": [
+          "Roles"
+        ],
+        "operationId": "List Roles",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "offset , initaially pass 0 , then 0+limit",
+            "required": false,
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit , no of records you want to get ,  by default its value is 10, pass 0 to get all the records",
+            "required": false,
+            "type": "integer",
+            "default": "10"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "description": "Add New Role",
+        "summary": "Create Role (Needs Admin Token)",
+        "tags": [
+          "Roles"
+        ],
+        "operationId": "Create Role",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "name of the role"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/roles/{id}": {
+      "get": {
+        "description": "Get a Single Role",
+        "summary": "View Role (Needs Admin Token)",
+        "tags": [
+          "Roles"
+        ],
+        "operationId": "View Role",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id (pass package id here)",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete a Role",
+        "summary": "Delete Role (Needs Admin Token)",
+        "tags": [
+          "Roles"
+        ],
+        "operationId": "Delete Role",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id (pass package id here)",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "patch": {
+        "description": "Update a Role",
+        "summary": "Update Role (Needs Admin Token)",
+        "tags": [
+          "Roles"
+        ],
+        "operationId": "Update Role",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id (pass package id here)",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "new name of the role"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/stream-categories": {
+      "get": {
+        "description": "List All Stream Categories",
+        "summary": "List Stream Categories",
+        "tags": [
+          "Stream Categories"
+        ],
+        "operationId": "List Stream Categories",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "offset , initaially pass 0 , then 0+limit",
+            "required": false,
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit , no of records you want to get ,  by default its value is 10, pass 0 to get all the records",
+            "required": false,
+            "type": "integer",
+            "default": "10"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "description": "Create a New Stream Category",
+        "summary": "Create Stream Category (Needs Admin Token)",
+        "tags": [
+          "Stream Categories"
+        ],
+        "operationId": "Create Stream Category",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "name of the stream category"
+          },
+          {
+            "name": "description",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "description of the stream category"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/stream-categories/{id}": {
+      "get": {
+        "description": "Get a single stream category",
+        "summary": "View Stream Category",
+        "tags": [
+          "Stream Categories"
+        ],
+        "operationId": "View Stream Category",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id (pass stream category id here)",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete a stream category",
+        "summary": "Delete Stream Category (Needs Admin Token)",
+        "tags": [
+          "Stream Categories"
+        ],
+        "operationId": "Delete Stream Category",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id (pass stream category id here)",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "patch": {
+        "description": "Update a Stream Category",
+        "summary": "Update Stream Category",
+        "tags": [
+          "Stream Categories"
+        ],
+        "operationId": "Update Stream Category",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id (pass stream category id here)",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "new name of the stream category"
+          },
+          {
+            "name": "description",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "new description of the stream category"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/streams": {
+      "get": {
+        "description": "List All Streams",
+        "summary": "List Streams",
+        "tags": [
+          "Streams"
+        ],
+        "operationId": "List Streams",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "offset , initaially pass 0 , then 0+limit",
+            "required": false,
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit , no of records you want to get ,  by default its value is 10, pass 0 to get all the records",
+            "required": false,
+            "type": "integer",
+            "default": "10"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "description": "Create a New Stream",
+        "summary": "Create Stream",
+        "tags": [
+          "Streams"
+        ],
+        "operationId": "Create Stream",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "formData",
+            "required": true,
+            "type": "integer",
+            "description": "user_id of the user (returned from Register Api)"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "name of the stream category"
+          },
+          {
+            "name": "quality",
+            "in": "formData",
+            "required": true,
+            "type": "integer",
+            "enum": [240,480,720,1080],
+            "default": 240,
+            "description": "preferred quality of the stream"
+          },
+          {
+            "name": "is_public",
+            "in": "formData",
+            "required": true,
+            "type": "integer",
+            "enum": [0,1],
+            "default": 1,
+            "description": "Set this stream public or private, 1 = Yes/True, 0 = No/False"
+          },
+          {
+            "name": "allow_comments",
+            "in": "formData",
+            "required": true,
+            "type": "integer",
+            "enum": [0,1],
+            "default": 1,
+            "description": "Comments are allowed or not, 1 = Yes/True, 0 = No/False"
+          },
+          {
+            "name": "allow_tag_requests",
+            "in": "formData",
+            "required": true,
+            "type": "integer",
+            "enum": [0,1],
+            "default": 1,
+            "description": "Tag requests are allowed or not, 1 = Yes/True, 0 = No/False"
+          },
+          {
+            "name": "available_later",
+            "in": "formData",
+            "required": true,
+            "type": "integer",
+            "enum": [0,1],
+            "default": 1,
+            "description": "Stream available after it ends or not (0 means this stream will not be listed after it ends), 1 = Yes/True, 0 = No/False"
+          },
+          {
+            "name": "lng",
+            "in": "formData",
+            "required": false,
+            "type": "float",
+            "description": "Location of the stream user"
+          },
+          {
+            "name": "lat",
+            "in": "formData",
+            "required": false,
+            "type": "float",
+            "description": "Location of the stream user"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/streams/{id}": {
+      "post": {
+        "description": "End Stream",
+        "summary": "End Stream",
+        "tags": [
+          "Streams"
+        ],
+        "operationId": "End Stream",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id (pass stream id here)",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/streams/block": {
+      "get": {
+        "description": "Get the list of Streams blocked by the authenticated user",
+        "summary": "Get Streams that are Blocked by Authenticated User",
+        "tags": [
+          "Streams"
+        ],
+        "operationId": "List Blocked Streams",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "offset , initaially pass 0 , then 0+limit",
+            "required": false,
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit , no of records you want to get ,  by default its value is 10, pass 0 to get all the records",
+            "required": false,
+            "type": "integer",
+            "default": "10"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/streams/report": {
+      "get": {
+        "description": "Get the list of Streams reported by the authenticated user",
+        "summary": "Get Streams that are Reported by Authenticated User",
+        "tags": [
+          "Streams"
+        ],
+        "operationId": "List Reported Streams",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "offset , initaially pass 0 , then 0+limit",
+            "required": false,
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit , no of records you want to get ,  by default its value is 10, pass 0 to get all the records",
+            "required": false,
+            "type": "integer",
+            "default": "10"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/streams/favorite": {
+      "get": {
+        "description": "Get the list of Streams marked favorite by the authenticated user",
+        "summary": "Get Streams that are marked Favorite by Authenticated User",
+        "tags": [
+          "Streams"
+        ],
+        "operationId": "List Favorite Streams",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "offset , initaially pass 0 , then 0+limit",
+            "required": false,
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit , no of records you want to get ,  by default its value is 10, pass 0 to get all the records",
+            "required": false,
+            "type": "integer",
+            "default": "10"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/streams/watch-later": {
+      "get": {
+        "description": "Get the list of Watch Later Streams of the authenticated user",
+        "summary": "Get Streams that are marked as Watch Later by Authenticated User",
+        "tags": [
+          "Streams"
+        ],
+        "operationId": "List Watch Later Streams",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "offset , initaially pass 0 , then 0+limit",
+            "required": false,
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit , no of records you want to get ,  by default its value is 10, pass 0 to get all the records",
+            "required": false,
+            "type": "integer",
+            "default": "10"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/streams/save": {
+      "get": {
+        "description": "Get the list of Streams saved by the authenticated user",
+        "summary": "Get Streams that are Saved by Authenticated User",
+        "tags": [
+          "Streams"
+        ],
+        "operationId": "List Saved Streams",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "offset , initaially pass 0 , then 0+limit",
+            "required": false,
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit , no of records you want to get ,  by default its value is 10, pass 0 to get all the records",
+            "required": false,
+            "type": "integer",
+            "default": "10"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/stream-actions": {
+      "get": {
+        "description": "List All Actions related to a stream",
+        "summary": "List All Actions related to a stream",
+        "tags": [
+          "Stream Actions"
+        ],
+        "operationId": "List Stream Actions",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          },
+          {
+            "name": "stream_id",
+            "in": "query",
+            "description": "Stream id to fetch actions",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "offset , initaially pass 0 , then 0+limit",
+            "required": false,
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit , no of records you want to get ,  by default its value is 10, pass 0 to get all the records",
+            "required": false,
+            "type": "integer",
+            "default": "10"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "description": "Add a New Stream Action",
+        "summary": "Add Stream Action",
+        "tags": [
+          "Stream Actions"
+        ],
+        "operationId": "Add Stream Action",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "formData",
+            "required": true,
+            "type": "integer",
+            "description": "user_id of the user (returned from Register Api)"
+          },
+          {
+            "name": "stream_id",
+            "in": "formData",
+            "description": "Stream id to add action",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "type",
+            "in": "formData",
+            "required": true,
+            "enum": [0,10,20,30,40,50,60,70,80],
+            "type": "integer",
+            "description": "0=Block,10=Report,20=Favorite,30=Watch Later,40=Save,50=Share,60=Like,70=Dislike,80=View"
+          },
+          {
+            "name": "details",
+            "in": "formData",
+            "required": false,
+            "type": "string",
+            "description": "additional data for future use"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/stream-actions/{id}": {
+      "delete": {
+        "description": "Delete a Stream Action",
+        "summary": "Delete Stream Action (Favorites / Watch Later / Save)",
+        "tags": [
+          "Stream Actions"
+        ],
+        "operationId": "Delete a Stream Action",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id (pass action id here)",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/friend-requests": {
+      "get": {
+        "description": "List All Friend Requests received to the authenticated user.",
+        "summary": "List All Friend Requests received to the authenticated user.",
+        "tags": [
+          "Friends and Followers"
+        ],
+        "operationId": "List Friend Requests",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "offset , initaially pass 0 , then 0+limit",
+            "required": false,
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit , no of records you want to get ,  by default its value is 10, pass 0 to get all the records",
+            "required": false,
+            "type": "integer",
+            "default": "10"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "description": "Send a Friend Request",
+        "summary": "Send a Friend Request to a User",
+        "tags": [
+          "Friends and Followers"
+        ],
+        "operationId": "Send a Friend Request",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "formData",
+            "required": true,
+            "type": "integer",
+            "description": "user_id of the user (returned from Register Api)"
+          },
+          {
+            "name": "friend_user_id",
+            "in": "formData",
+            "description": "user_id of the contact to send request to.",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "medium",
+            "in": "formData",
+            "required": true,
+            "enum": [0,10,20,30,40,50],
+            "type": "integer",
+            "description": "0=APP Request,10=Phonebook,20=Email,30=Facebook,40=Twitter,50=Google+"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/friend-requests/accept/{id}": {
+      "post": {
+        "description": "Accept Friend Request received to the authenticated user.",
+        "summary": "Accept Friend Request received to the authenticated user.",
+        "tags": [
+          "Friends and Followers"
+        ],
+        "operationId": "Accept Friend Request",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "Friend Request ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/friend-requests/reject/{id}": {
+      "post": {
+        "description": "Reject Friend Request received to the authenticated user.",
+        "summary": "Reject Friend Request received to the authenticated user.",
+        "tags": [
+          "Friends and Followers"
+        ],
+        "operationId": "Reject Friend Request",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token returned from (Register / Login API)"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "Friend Request ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    }
+  },
+
+  "securityDefinitions": {
+  },
+  "definitions": {
+  }
+}
